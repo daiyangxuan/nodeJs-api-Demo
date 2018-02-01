@@ -7,9 +7,9 @@ const config = require('./config');
 
 function sendTX(method,params) {
     util.getBlockNumber().then((blockNumber) => {
-        const blockLimit = `${blockNumber + 50}`;
-        const bizId = `${Math.random()}`;
-        const contractAddress = config.dataUnitAddress;
+        let blockLimit = `${blockNumber + 50}`;
+        let bizId = `${Math.random()}`;
+        let contractAddress = config.dataUnitAddress;
         // const method = 'createUnit';
         // const params = [dataUnitId, preDataUnitId, existenceHash, customString];
         // 计算代签原文
@@ -42,6 +42,16 @@ function sendTX(method,params) {
       });
 }
 
+function contract(contractAddress, functionName, params) {
+  util.contract({contractAddress, functionName, params})
+  .then((contractData) => {
+    return contractData;
+  }).then((result)=> {
+    console.log(`contractResult: ${JSON.stringify(result)}`);
+  });
+}
+
 exports = module.exports = {
     sendTX,
+    contract,
 }

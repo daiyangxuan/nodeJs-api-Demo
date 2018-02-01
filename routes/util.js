@@ -103,6 +103,17 @@ function printTxInfo(txHash) {
   });
 }
 
+/**
+ * 只读接口
+ * @param {*} contractReq 
+ */
+function contract(...contractReq) {
+  return sendPost(`${config.middleware}/common/contract.json`, ...contractReq)
+  .then((resData) => {
+    return resData.detail;
+  });
+}
+
 exports = module.exports = {
   printTxInfo,
   getBlockNumber,
@@ -111,4 +122,5 @@ exports = module.exports = {
   getBuildInfo,
   getSign,
   sendTx,
+  contract,
 };

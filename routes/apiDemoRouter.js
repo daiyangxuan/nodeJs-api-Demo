@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const txService = require('./txService');
+const config = require('./config');
 
 router.use(bodyParser.urlencoded({ extended: false }));  
 
@@ -15,6 +16,12 @@ router.post('/createUnit', function(req, res) {
         req.body.opIdentityAddress  // 当前操作人身份合约地址
     ];
     txService.sendTX(method,params);
+});
+
+router.post('/getIdentityInfo', function(req, res) {
+    let contractAddress = config.coopUserAddress;
+    let functionName = "getIdentityInfo";
+    txService.contract(contractAddress, functionName, []);
 });
 
 module.exports = router;
